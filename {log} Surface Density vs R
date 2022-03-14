@@ -38,19 +38,20 @@ upper_limit = float(input("Upper Limit? "))
 steps = float(input("Steps? "))
 mass_g = 0
 
-while AU <= upper_limit:
-    R_in_cm = AU * AU_in_cm
 
 # define surface density function
-    def sur_den(R_in_cm):
-        return sur_den_0 * ((R_in_cm / (10 * AU_in_cm)) ** (-1))
+def sur_den(R_in_cm):
+    return sur_den_0 * ((R_in_cm / (10 * AU_in_cm)) ** (-1))
 
-    def mass_graph(R_in_cm, AU_in_cm, sur_den):
-        return np.pi * (R_in_cm ** 2 - (R_in_cm - AU_in_cm * steps) ** 2) * sur_den(R_in_cm)
 
+# define mass function
+def mass_graph(R_in_cm, AU_in_cm, sur_den):
+    return np.pi * (R_in_cm ** 2 - (R_in_cm - AU_in_cm * steps) ** 2) * sur_den(R_in_cm)
+
+
+while AU <= upper_limit:
+    R_in_cm = AU * AU_in_cm
     mass_g += mass_graph(R_in_cm, AU_in_cm, sur_den)
-
-
 
     y_axis_values.append(mass_graph(R_in_cm, AU_in_cm, sur_den) / (5.9722 * 10**27))
     x_axis_values.append(AU)
@@ -60,7 +61,10 @@ print(str(mass_g/ (5.9722 * 10**27)) + r" Earth's masses")
 plt.ylabel(r'Surface Density $[\frac{g}{cm^2}]$')
 plt.xlabel('$R[AU]$')
 plt.plot(x_axis_values, y_axis_values, label=(r'${\sum}_0 (\frac{R}{10 AU})^{-1}$'))
-plt.yscale('log'), plt.xscale('log')
+
+# Uncomment next line to have x and y scales on a log scale
+# plt.yscale('log'), plt.xscale('log')
+
 plt.title("Surface Density vs R")
 plt.grid(), plt.legend(), plt.show()
 
