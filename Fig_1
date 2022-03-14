@@ -94,6 +94,8 @@ plt.scatter(masses_list, flux_list_0_88mm, c='red', label='Disks in this survey'
 
 plt.xlabel(r'$M_{\star}(M_{\odot})$'), plt.ylabel('$F_{0.88mm}(mJy)$')
 plt.legend()
-plt.yscale('log'), plt.xscale('log')
+
+# Uncomment next line to have log scale on x and y axis
+# plt.yscale('log'), plt.xscale('log')
 plt.savefig('Fig 1')
 plt.show()
